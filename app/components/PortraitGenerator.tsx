@@ -10,11 +10,37 @@ export default function PortraitGenerator() {
   const [result, setResult] = useState<string | null>(null);
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleGenerate() {
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setResult("https://picsum.photos/512/512");
+    setError(null);
+
+    const formData = new FormData();
+    formData.append("photo", photo!);
+    formData.append("class", dndClass);
+
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      body: formData,
+    });
+
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!response.ok) {
+      setError(data?.error ?? "Something went wrong. Please try again.");
+      setIsLoading(false);
+      return;
+    }
+
+    setResult(data.imageUrl);
     setIsLoading(false);
   }
 
@@ -82,6 +108,10 @@ export default function PortraitGenerator() {
           "Generate Portrait"
         )}
       </button>
+
+      {error && (
+        <p className="mt-4 text-sm text-red-600">{error}</p>
+      )}
 
       {result && !emailSubmitted && (
         <EmailCapture
