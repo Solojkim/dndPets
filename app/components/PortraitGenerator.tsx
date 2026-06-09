@@ -50,34 +50,48 @@ export default function PortraitGenerator() {
   }
 
   return (
-    <section id="generator" className="flex flex-col items-center px-6 py-16 md:py-24">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+    <section
+      id="generator"
+      className="flex flex-col items-center px-6 py-16 md:py-24"
+      style={{ backgroundColor: "#ede0c4" }}
+    >
+      <h2
+        className="text-2xl md:text-3xl font-bold text-red-900"
+        style={{ fontFamily: "var(--font-cinzel)" }}
+      >
         Create Your Portrait
       </h2>
 
       <div className="mt-8 w-full max-w-md">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          className="block text-sm font-semibold mb-2 text-stone-700"
+          style={{ fontFamily: "var(--font-lora)" }}
+        >
           Upload a photo of your pet
         </label>
         <input
           type="file"
           accept="image/*"
           onChange={handlePhotoChange}
-          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200"
+          className="block w-full text-sm text-stone-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-red-900 file:text-white hover:file:bg-red-950"
         />
         {photo && (
-          <p className="mt-2 text-sm text-green-600">{photo.name} selected</p>
+          <p className="mt-2 text-sm text-green-800">{photo.name} selected</p>
         )}
       </div>
 
       <div className="mt-6 w-full max-w-md">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          className="block text-sm font-semibold mb-2 text-stone-700"
+          style={{ fontFamily: "var(--font-lora)" }}
+        >
           Choose a DnD class
         </label>
         <select
           value={dndClass}
           onChange={(e) => setDndClass(e.target.value)}
-          className="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-purple-500 focus:outline-none"
+          className="block w-full rounded-lg border border-amber-900/30 px-4 py-3 text-stone-800 focus:border-red-900 focus:outline-none"
+          style={{ backgroundColor: "#f5ecd7", fontFamily: "var(--font-lora)" }}
         >
           <option value="">Select a class...</option>
           <option value="wizard">Wizard</option>
@@ -94,7 +108,8 @@ export default function PortraitGenerator() {
       <button
         onClick={handleGenerate}
         disabled={!photo || !dndClass || isLoading}
-        className="mt-8 bg-purple-700 text-white text-lg font-semibold px-10 py-4 rounded-full hover:bg-purple-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="mt-8 bg-red-900 hover:bg-red-950 text-white text-lg font-semibold px-10 py-4 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{ fontFamily: "var(--font-cinzel)" }}
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
@@ -110,7 +125,7 @@ export default function PortraitGenerator() {
       </button>
 
       {error && (
-        <p className="mt-4 text-sm text-red-600">{error}</p>
+        <p className="mt-4 text-sm text-red-800">{error}</p>
       )}
 
       {result && !emailSubmitted && (
@@ -135,7 +150,8 @@ export default function PortraitGenerator() {
           <a
             href={result}
             download="pet-portrait.png"
-            className="bg-purple-700 text-white font-semibold px-8 py-3 rounded-full hover:bg-purple-800 transition-colors"
+            className="bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-3 rounded-full transition-colors"
+            style={{ fontFamily: "var(--font-cinzel)" }}
           >
             Download Portrait
           </a>
