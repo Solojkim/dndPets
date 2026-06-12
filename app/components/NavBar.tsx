@@ -27,10 +27,10 @@ export default function NavBar() {
 
       <a
         href="#generator"
-        className="bg-red-900 hover:bg-red-950 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors"
+        className="bg-red-900 hover:bg-red-950 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors whitespace-nowrap"
         style={{ fontFamily: "var(--font-cinzel)" }}
       >
-        Create Your Portrait
+        Cast Polymorph
       </a>
     </nav>
   );
