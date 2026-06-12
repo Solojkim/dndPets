@@ -1,12 +1,23 @@
+import Image from "next/image";
+
 export default function NavBar() {
   return (
-    <nav className="sticky top-0 z-40 w-full border-b-2 border-amber-900/40 px-6 py-4 flex items-center justify-between shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
-      <span
-        className="text-xl font-bold text-red-900 tracking-wide"
-        style={{ fontFamily: "var(--font-cinzel)" }}
-      >
-        Dungeons & Doggies
-      </span>
+    <nav className="sticky top-0 z-40 w-full border-b-2 border-amber-900/40 px-6 py-1 flex items-center justify-between shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
+      <div className="flex items-center gap-3">
+        <Image
+          src="/logo.png"
+          alt="Dungeons & Doggies logo"
+          width={72}
+          height={72}
+          className="rounded-sm"
+        />
+        <span
+          className="text-xl font-bold text-red-900 tracking-wide"
+          style={{ fontFamily: "var(--font-cinzel)" }}
+        >
+          Dungeons & Doggies
+        </span>
+      </div>
 
       <div className="hidden md:flex items-center gap-12">
         <a href="#how-it-works" className="text-sm text-stone-600 hover:text-red-900 transition-colors" style={{ fontFamily: "var(--font-cinzel)" }}>How It Works</a>

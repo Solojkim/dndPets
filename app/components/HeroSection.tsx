@@ -3,106 +3,85 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-const SETS = [
-  {
-    before: "/heppiEager_cleanedFlipped.png",
-    after: "/heppiEagerBard.webp",
-    label: "Bard",
-  },
-  {
-    before: "/heppiAngry.png",
-    after: "/barbHeppi.png",
-    label: "Barbarian",
-  },
-  {
-    before: "/heppiChunky_very_muted.png",
-    after: "/wizardHeppi.png",
-    label: "Wizard",
-  },
+const FRAMES = [
+  { src: "/heppiEager_cleanedFlipped.png", tag: "Your Pet" },
+  { src: "/heppiEagerBard.webp", tag: "→ Bard" },
+  { src: "/heppiAngry.png", tag: "Your Pet" },
+  { src: "/barbHeppi.png", tag: "→ Barbarian" },
+  { src: "/heppiChunky_very_muted.png", tag: "Your Pet" },
+  { src: "/wizardHeppi.png", tag: "→ Wizard" },
 ];
 
 export default function HeroSection() {
-  const [currentSet, setCurrentSet] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [isTagVisible, setIsTagVisible] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsVisible(false);
+      setIsTagVisible(false);
       setTimeout(() => {
-        setCurrentSet((prev) => (prev + 1) % SETS.length);
-        setIsVisible(true);
-      }, 500);
-    }, 4000);
+        setCurrentIdx((prev) => (prev + 1) % FRAMES.length);
+        setIsTagVisible(true);
+      }, 400);
+    }, 3200);
 
     return () => clearInterval(interval);
   }, []);
 
-  const set = SETS[currentSet];
-
   return (
-    <section className="flex flex-col items-center justify-center text-center px-6 py-16 md:py-24 min-h-screen border-b border-amber-900/20">
-      <h1
-        className="text-3xl md:text-5xl font-bold tracking-tight max-w-2xl text-red-900"
-        style={{ fontFamily: "var(--font-cinzel)" }}
-      >
-        Turn Your Pet Into a DnD Legend
-      </h1>
-      <p
-        className="mt-6 text-base md:text-xl max-w-xl text-stone-600"
-        style={{ fontFamily: "var(--font-lora)" }}
-      >
-        Turn your pal into a paladin. Upload a photo, pick a class, and get a
-        hyper-realistic fantasy portrait in seconds.
-      </p>
+    <section className="relative flex flex-col items-center justify-center text-center px-6 py-16 md:py-24 min-h-screen border-b border-amber-900/20 overflow-hidden">
 
-      <div className={`mt-12 flex flex-col md:flex-row items-center gap-4 md:gap-8 transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-        <div className="flex flex-col items-center gap-2">
+      {/* Background image layers */}
+      {FRAMES.map((frame, idx) => (
+        <div
+          key={frame.src}
+          className="absolute inset-0 transition-opacity duration-1000"
+          style={{ opacity: idx === currentIdx ? 1 : 0 }}
+        >
           <Image
-            src={set.before}
-            alt="Real pet photo before transformation"
-            width={300}
-            height={300}
-            className="rounded-2xl shadow-md object-cover"
+            src={frame.src}
+            alt=""
+            fill
+            className="object-contain"
+            priority={idx === 0}
           />
-          <span
-            className="text-sm text-stone-500"
-            style={{ fontFamily: "var(--font-lora)" }}
-          >
-            Your Pet
-          </span>
         </div>
+      ))}
 
-        <span
-          className="text-3xl text-red-900 font-bold"
+      {/* Parchment overlay so text stays readable */}
+      <div className="absolute inset-0 bg-amber-50/65" />
+
+      {/* Content sits above both layers */}
+      <div className="relative z-10 flex flex-col items-center">
+        <h1
+          className="text-3xl md:text-5xl font-bold tracking-tight max-w-2xl text-red-900"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
-          →
+          Turn Your Pet Into a DnD Legend
+        </h1>
+        <p
+          className="mt-6 text-base md:text-xl max-w-xl text-stone-700"
+          style={{ fontFamily: "var(--font-lora)" }}
+        >
+          Turn your pal into a paladin. Upload a photo, pick a class, and get a
+          hyper-realistic fantasy portrait in seconds.
+        </p>
+
+        <span
+          className={`mt-10 text-sm font-semibold tracking-widest uppercase text-red-900/60 transition-opacity duration-300 ${isTagVisible ? "opacity-100" : "opacity-0"}`}
+          style={{ fontFamily: "var(--font-cinzel)" }}
+        >
+          {FRAMES[currentIdx].tag}
         </span>
 
-        <div className="flex flex-col items-center gap-2">
-          <Image
-            src={set.after}
-            alt={`Pet transformed into a DnD ${set.label}`}
-            width={300}
-            height={300}
-            className="rounded-2xl shadow-md object-cover"
-          />
-          <span
-            className="text-sm text-stone-500"
-            style={{ fontFamily: "var(--font-lora)" }}
-          >
-            DnD {set.label}
-          </span>
-        </div>
+        <a
+          href="#generator"
+          className="mt-6 inline-block bg-red-900 hover:bg-red-950 text-white text-lg font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
+          style={{ fontFamily: "var(--font-cinzel)" }}
+        >
+          Create Your Portrait
+        </a>
       </div>
-
-      <a
-        href="#generator"
-        className="mt-12 inline-block bg-red-900 hover:bg-red-950 text-white text-lg font-semibold px-8 py-4 rounded-full transition-colors"
-        style={{ fontFamily: "var(--font-cinzel)" }}
-      >
-        Create Your Portrait
-      </a>
     </section>
   );
 }
