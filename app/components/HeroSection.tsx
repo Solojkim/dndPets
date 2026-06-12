@@ -31,8 +31,8 @@ export default function HeroSection() {
       setTimeout(() => {
         setCurrentSet((prev) => (prev + 1) % SETS.length);
         setIsVisible(true);
-      }, 300);
-    }, 2500);
+      }, 500);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -55,7 +55,7 @@ export default function HeroSection() {
         hyper-realistic fantasy portrait in seconds.
       </p>
 
-      <div className={`mt-12 flex flex-col md:flex-row items-center gap-4 md:gap-8 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+      <div className={`mt-12 flex flex-col md:flex-row items-center gap-4 md:gap-8 transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
         <div className="flex flex-col items-center gap-2">
           <Image
             src={set.before}
