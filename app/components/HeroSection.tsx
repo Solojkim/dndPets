@@ -40,10 +40,10 @@ export default function HeroSection() {
   const set = SETS[currentSet];
 
   return (
-    <section className="flex flex-col md:flex-row items-start justify-start md:justify-center gap-12 md:gap-20 px-8 pt-12 pb-16 md:pt-32 md:pb-24 min-h-screen border-b border-amber-900/20">
+    <section className="flex flex-col md:flex-row items-start md:items-stretch justify-start md:justify-center gap-12 md:gap-4 px-8 pt-12 pb-16 md:pt-0 md:pb-0 min-h-screen border-b border-amber-900/20">
 
-      {/* Left: text */}
-      <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg">
+      {/* Left: text + button */}
+      <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg md:pt-12 md:pb-12">
         <h1
           className="text-3xl md:text-5xl font-bold tracking-tight text-red-900"
           style={{ fontFamily: "var(--font-cinzel)" }}
@@ -57,14 +57,38 @@ export default function HeroSection() {
           Turn your pal into a paladin. Upload a photo, pick a class, and get a
           hyper-realistic fantasy portrait in seconds.
         </p>
+
+        {/* Button — sits right below text */}
         <a
           href="#generator"
-          className="mt-10 self-center flex flex-col items-center bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
+          className="mt-8 self-center flex flex-col items-center bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           <span className="text-lg">Cast Polymorph</span>
           <span className="text-[10px] text-white/50">(Create your portrait)</span>
         </a>
+
+        {/* Before image — desktop only, pushed to bottom of column */}
+        <div className={`hidden md:flex items-center gap-4 mt-16 self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+          <div className="relative w-[200px] h-[220px] rounded-2xl overflow-hidden shadow-md">
+            {SETS.map((s, idx) => (
+              <div
+                key={s.label + "-before"}
+                className="absolute inset-0 transition-opacity duration-1000"
+                style={{ opacity: idx === currentSet ? 1 : 0 }}
+              >
+                <Image
+                  src={s.before.src}
+                  alt="Your pet"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: s.before.position ?? "50% 50%" }}
+                  priority={idx === 0}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Mobile: before + after side by side */}
         <div
@@ -99,31 +123,34 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Desktop: single large cycling image */}
-      <div className="hidden md:flex flex-col items-center gap-3">
-        <div className="relative md:w-[480px] md:h-[480px]">
-          {SETS.map((s, idx) => (
-            <div
-              key={s.label}
-              className="absolute inset-0 transition-opacity duration-1000 rounded-2xl overflow-hidden shadow-xl"
-              style={{ opacity: idx === currentSet ? 1 : 0 }}
-            >
-              <Image
-                src={s.after.src}
-                alt={`Dog as DnD ${s.label}`}
-                fill
-                className="object-cover"
-                priority={idx === 0}
-              />
-            </div>
-          ))}
-        </div>
-        <span
-          className={`text-sm font-semibold tracking-widest uppercase text-red-900/60 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
-          style={{ fontFamily: "var(--font-cinzel)" }}
-        >
-          → {set.label}
-        </span>
+      {/* Arrow — desktop only */}
+      <div
+        className="hidden md:flex self-end mb-[158px] text-3xl text-red-900 font-bold flex-shrink-0"
+        style={{ fontFamily: "var(--font-cinzel)" }}
+      >
+        →
+      </div>
+
+      {/* Desktop: large after image */}
+      <div
+        className="hidden md:block relative rounded-2xl overflow-hidden shadow-xl flex-shrink-0 mt-6 mb-12"
+        style={{ width: "45vw", maxWidth: "640px" }}
+      >
+        {SETS.map((s, idx) => (
+          <div
+            key={s.label + "-after"}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: idx === currentSet ? 1 : 0 }}
+          >
+            <Image
+              src={s.after.src}
+              alt={`Dog as DnD ${s.label}`}
+              fill
+              className="object-cover"
+              priority={idx === 0}
+            />
+          </div>
+        ))}
       </div>
 
     </section>
