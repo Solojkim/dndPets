@@ -69,24 +69,33 @@ export default function HeroSection() {
         </a>
 
         {/* Before image — desktop only, pushed to bottom of column */}
-        <div className={`hidden md:flex items-center gap-4 mt-16 self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          <div className="relative w-[200px] h-[220px] rounded-2xl overflow-hidden shadow-md">
-            {SETS.map((s, idx) => (
-              <div
-                key={s.label + "-before"}
-                className="absolute inset-0 transition-opacity duration-1000"
-                style={{ opacity: idx === currentSet ? 1 : 0 }}
-              >
-                <Image
-                  src={s.before.src}
-                  alt="Your pet"
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: s.before.position ?? "50% 50%" }}
-                  priority={idx === 0}
-                />
-              </div>
-            ))}
+        <div className={`hidden md:flex mt-16 self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+          {/* Outer div is relative + overflow-visible so the arrow can float outside */}
+          <div className="relative w-[200px] h-[220px]">
+            <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-md">
+              {SETS.map((s, idx) => (
+                <div
+                  key={s.label + "-before"}
+                  className="absolute inset-0 transition-opacity duration-1000"
+                  style={{ opacity: idx === currentSet ? 1 : 0 }}
+                >
+                  <Image
+                    src={s.before.src}
+                    alt="Your pet"
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: s.before.position ?? "50% 50%" }}
+                    priority={idx === 0}
+                  />
+                </div>
+              ))}
+            </div>
+            <span
+              className="absolute top-1/2 -translate-y-1/2 -right-26 text-3xl text-red-900 font-bold"
+              style={{ fontFamily: "var(--font-cinzel)" }}
+            >
+              →
+            </span>
           </div>
         </div>
 
@@ -121,14 +130,6 @@ export default function HeroSection() {
             <span className="text-xs text-stone-500" style={{ fontFamily: "var(--font-lora)" }}>{set.label}</span>
           </div>
         </div>
-      </div>
-
-      {/* Arrow — desktop only */}
-      <div
-        className="hidden md:flex self-end mb-[158px] text-3xl text-red-900 font-bold flex-shrink-0"
-        style={{ fontFamily: "var(--font-cinzel)" }}
-      >
-        →
       </div>
 
       {/* Desktop: large after image */}
