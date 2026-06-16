@@ -26,7 +26,7 @@ export default function NavBar() {
       </div>
 
       <a
-        href="#generator"
+        href="/generate"
         className="bg-red-900 hover:bg-red-950 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors whitespace-nowrap"
         style={{ fontFamily: "var(--font-cinzel)" }}
       >

@@ -60,7 +60,7 @@ export default function HeroSection() {
 
         {/* Button — sits right below text */}
         <a
-          href="#generator"
+          href="/generate"
           className="mt-8 self-center flex flex-col items-center bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
