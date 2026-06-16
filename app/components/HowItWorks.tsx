@@ -1,13 +1,13 @@
 const STEPS = [
   {
     number: "1",
-    title: "Upload Your Dog",
-    description: "Choose a clear photo of your dog facing forward. The better the photo, the more accurate the likeness.",
+    title: "Take the Quiz",
+    description: "Answer a few quick questions about your dog's personality — energy, social style, and instincts. We'll determine their DnD class.",
   },
   {
     number: "2",
-    title: "Pick a DnD Class",
-    description: "Choose from 8 iconic classes — Wizard, Paladin, Barbarian, Ranger, Rogue, Cleric, Druid, or Bard.",
+    title: "Upload Your Dog",
+    description: "Choose a clear, front-facing photo of your dog. The better the photo, the stronger the likeness in the final portrait.",
   },
   {
     number: "3",
@@ -18,7 +18,7 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#f5ecd7" }}>
+    <section id="how-it-works" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#ede0c4" }}>
       <h2
         className="text-2xl md:text-3xl font-bold text-red-900 text-center mb-12"
         style={{ fontFamily: "var(--font-cinzel)" }}

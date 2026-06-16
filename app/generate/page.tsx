@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import EmailCapture from "../components/EmailCapture";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 // ─── Quiz data ────────────────────────────────────────────────────────────────
 
@@ -273,7 +275,9 @@ export default function GeneratePage() {
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-16" style={{ backgroundColor: "#f5ecd7" }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#f5ecd7" }}>
+    <NavBar />
+    <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
 
       {/* ── Quiz step ── */}
       {step === "quiz" && (
@@ -463,7 +467,7 @@ export default function GeneratePage() {
 
       {/* ── Done step ── */}
       {step === "done" && generatedUrl && (
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-6 -mt-4">
           {emailSubmitted ? (
             <>
               <h1 className="text-3xl font-bold text-red-900" style={{ fontFamily: "var(--font-cinzel)" }}>
@@ -508,5 +512,7 @@ export default function GeneratePage() {
       )}
 
     </main>
+    {step === "done" && <Footer />}
+    </div>
   );
 }

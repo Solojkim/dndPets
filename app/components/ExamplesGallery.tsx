@@ -20,7 +20,7 @@ const EXAMPLES = [
 
 export default function ExamplesGallery() {
   return (
-    <section id="examples" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#ede0c4" }}>
+    <section id="examples" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#f5ecd7" }}>
       <h2
         className="text-2xl md:text-3xl font-bold text-red-900 text-center mb-4"
         style={{ fontFamily: "var(--font-cinzel)" }}

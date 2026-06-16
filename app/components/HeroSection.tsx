@@ -134,7 +134,7 @@ export default function HeroSection() {
 
       {/* Desktop: large after image */}
       <div
-        className="hidden md:block relative rounded-2xl overflow-hidden shadow-xl flex-shrink-0 mt-6 mb-12"
+        className="hidden md:block relative rounded-2xl overflow-hidden shadow-xl flex-shrink-0 mb-12"
         style={{ width: "45vw", maxWidth: "640px" }}
       >
         {SETS.map((s, idx) => (

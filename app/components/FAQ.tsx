@@ -21,13 +21,13 @@ const FAQS = [
   },
   {
     question: "Can I use this for cats or other pets?",
-    answer: "Dungeons & Doggies is currently optimized for dogs. The AI and prompts are tuned specifically for canine features and likeness preservation. Cat and other pet support is on our roadmap — sign up to be notified when it launches.",
+    answer: "Dungeons & Doggos is currently optimized for dogs. The AI and prompts are tuned specifically for canine features and likeness preservation. Cat and other pet support is on our roadmap — sign up to be notified when it launches.",
   },
 ];
 
 export default function FAQ() {
   return (
-    <section id="faq" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#f5ecd7" }}>
+    <section id="faq" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#ede0c4" }}>
       <h2
         className="text-2xl md:text-3xl font-bold text-red-900 text-center mb-12"
         style={{ fontFamily: "var(--font-cinzel)" }}

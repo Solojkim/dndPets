@@ -8,7 +8,7 @@ export default function Footer() {
             className="text-lg font-bold text-amber-100"
             style={{ fontFamily: "var(--font-cinzel)" }}
           >
-            Dungeons & Doggies
+            Dungeons & Doggos
           </span>
           <p
             className="text-sm text-amber-900/70"
@@ -53,7 +53,7 @@ export default function Footer() {
           className="text-xs text-amber-900/50"
           style={{ fontFamily: "var(--font-lora)" }}
         >
-          © 2026 Dungeons & Doggies
+          © 2026 Dungeons & Doggos
         </p>
 
       </div>

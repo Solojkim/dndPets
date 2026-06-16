@@ -1,22 +1,29 @@
 import Replicate from "replicate";
 import { NextResponse } from "next/server";
+import sharp from "sharp";
+import path from "path";
+import fs from "fs";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_KEY,
 });
 
+// Prompts used when a class-refs reference image exists (panel-aware language)
+const CLASS_PROMPTS_REF: Record<string, string> = {
+  ranger:
+    "This image has two side-by-side panels. LEFT PANEL: the dog whose face and likeness must be preserved exactly — do not change the dog's facial features, markings, or fur. RIGHT PANEL: a DnD ranger reference character. Generate a hyper-realistic portrait of the dog from the left panel dressed as the ranger in the right panel. Copy the bow shape, armor, quiver, and pose from the right panel precisely. The dog's face and distinctive markings from the left panel must appear unchanged in the final portrait.",
+};
+
+// Original prompts — fallback when no reference image is available
 const CLASS_PROMPTS: Record<string, string> = {
   wizard:
     "Transform this dog and his likeness into a hyper realistic tall DnD style wizard portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The wizard should be wearing deep navy and silver robes adorned with intricate arcane sigils that faintly glow violet, and dark leather gloves with the same arcane sigils embroidered on the back of each hand. In his right hand he holds a tall gnarled wooden staff topped with a large glowing violet gemstone crackling with arcane energy. In his left hand he holds an open spellbook with glowing arcane script on its pages. The arcane sigils on his robes and the script inside the spellbook share the same magical symbols.",
   paladin:
-    "Transform this dog and his likeness into a hyper realistic tall DnD style paladin portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The paladin should be wearing blackened gold armor with an intricate insignia, and black armored gauntlets with the same insignia engraved on the back of each gauntlet. On his right hand, he should be equipped with a hammer similar in size to Thor’s Hammer that is glowing and radiating yellow/gold. On his left hand, he has equipped a kite shield that has a replica of the insignia on the armor. The insignias on the armor, the shield, and the gauntlets are identical.",
+    "Transform this dog and his likeness into a hyper realistic tall DnD style paladin portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The paladin should be wearing blackened gold armor with an intricate insignia, and black armored gauntlets with the same insignia engraved on the back of each gauntlet. On his right hand, he should be equipped with a hammer similar in size to Thor's Hammer that is glowing and radiating yellow/gold. On his left hand, he has equipped a kite shield that has a replica of the insignia on the armor. The insignias on the armor, the shield, and the gauntlets are identical.",
   barbarian:
     "Transform this dog and his likeness into a hyper realistic tall DnD style barbarian portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The barbarian should be wearing rugged, battle-worn fur and leather armor with tribal markings burned or carved into the leather. In his right hand he wields a massive two-handed greataxe with a chipped and worn blade. His left hand is bare and clenched into a fist. The tribal markings on his armor are identical to the markings etched along the flat of the greataxe blade.",
   ranger:
     "transform this dog and his likeness into a hyper realistic full body DnD style ranger portrait. The likeness, particularly the face, should be maximally preserved, but the color and shading should fit the rest of the image. He should hold a thick and finely detailed and engraved recurse bow on his left arm, holding it across his body. The bow is correctly shaped and has a string connecting the two ends of the bow. There are ZERO arrows in the hands or bow. The ranger is wearing a quiver on his back. He is wearing polished green leather armor with forest insignias. There are no arrows on the bow nor either hand. The bow is correctly shaped and fully visible in front of the body",
-
-
-
   rogue:
     "Transform this dog and his likeness into a hyper realistic DnD style rogue portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The rogue should be wearing sleep dark charcoal and black form-fitting leather armor and gloves. The rogue should be equipped with a finely ornate dark dagger in his right hand and a hand crossbow in the left hand perched up against his shoulder. The rogue is also wearing a black hood to conceal himself.",
   cleric:
@@ -27,35 +34,76 @@ const CLASS_PROMPTS: Record<string, string> = {
     "Transform this dog and his likeness into a hyper realistic tall DnD style bard portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The bard should be wearing flamboyant crimson and gold doublet clothing with an ornate theatrical mask motif embroidered across the chest, and crimson leather gloves with the same theatrical mask motif embroidered on the back of each glove. In his right hand he holds a lute with gold tuning pegs, the strings shimmering with iridescent magical resonance as if mid-performance. In his left hand he holds a wide-brimmed feathered hat with the same theatrical mask motif as a brooch pinned to the front. The mask motif on his doublet, his gloves, and the hat brooch are identical.",
 };
 
+async function buildComposite(dogBuffer: Buffer, refBuffer: Buffer): Promise<Buffer> {
+  const TARGET_HEIGHT = 768;
+
+  const [dogResized, refResized] = await Promise.all([
+    sharp(dogBuffer).resize({ height: TARGET_HEIGHT, fit: "contain", background: "#000000" }).jpeg().toBuffer(),
+    sharp(refBuffer).resize({ height: TARGET_HEIGHT, fit: "contain", background: "#000000" }).jpeg().toBuffer(),
+  ]);
+
+  const [dogMeta, refMeta] = await Promise.all([
+    sharp(dogResized).metadata(),
+    sharp(refResized).metadata(),
+  ]);
+
+  const dogW = dogMeta.width ?? 512;
+  const refW = refMeta.width ?? 512;
+
+  return sharp({
+    create: { width: dogW + refW, height: TARGET_HEIGHT, channels: 3, background: "#000000" },
+  })
+    .composite([
+      { input: dogResized, left: 0, top: 0 },
+      { input: refResized, left: dogW, top: 0 },
+    ])
+    .jpeg({ quality: 90 })
+    .toBuffer();
+}
+
 export async function POST(request: Request) {
   const formData = await request.formData();
   const photo = formData.get("photo") as File;
   const dndClass = formData.get("class") as string;
 
   if (!photo || !dndClass) {
-    return NextResponse.json(
-      { error: "Missing photo or class" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Missing photo or class" }, { status: 400 });
   }
 
-  const prompt = CLASS_PROMPTS[dndClass];
-  if (!prompt) {
+  const basePrompt = CLASS_PROMPTS[dndClass];
+  if (!basePrompt) {
     return NextResponse.json({ error: "Invalid class" }, { status: 400 });
   }
 
   try {
     const bytes = await photo.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const dogBuffer = Buffer.from(bytes);
 
-    // Pass buffer directly — SDK uploads to Replicate Files API and substitutes a URL,
-    // which is the format flux-kontext-pro actually expects.
-    // safety_tolerance max is 2 when an input_image is provided (per model schema).
-    const output = await replicate.run("black-forest-labs/flux-kontext-pro", {
+    // Try to load a class reference image (any supported extension).
+    const EXTS = [".jpg", ".jpeg", ".png", ".webp"];
+    const refDir = path.join(process.cwd(), "public", "class-refs");
+    const refPath = EXTS.map((ext) => path.join(refDir, `${dndClass}${ext}`)).find(fs.existsSync);
+
+    let inputBuffer: Buffer;
+    let prompt: string;
+    let aspectRatio: string;
+
+    if (CLASS_PROMPTS_REF[dndClass] && refPath) {
+      const refBuffer = fs.readFileSync(refPath);
+      inputBuffer = await buildComposite(dogBuffer, refBuffer);
+      prompt = CLASS_PROMPTS_REF[dndClass];
+      aspectRatio = "2:3";
+    } else {
+      inputBuffer = dogBuffer;
+      prompt = basePrompt;
+      aspectRatio = "match_input_image";
+    }
+
+    const output = await replicate.run("black-forest-labs/flux-kontext-max", {
       input: {
         prompt,
-        input_image: buffer,
-        aspect_ratio: "match_input_image",
+        input_image: inputBuffer,
+        aspect_ratio: aspectRatio,
         safety_tolerance: 6,
       },
     });

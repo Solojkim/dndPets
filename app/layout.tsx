@@ -15,7 +15,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Dungeons & Doggies | Fantasy Portraits of Your Pet",
+  title: "Dungeons & Doggos | Fantasy Portraits of Your Pet",
   description: "Upload a photo of your dog and get a hyper-realistic fantasy portrait as a DnD character. Wizard dogs, paladin pups, barbarian borks — digital download instantly.",
   icons: {
     icon: "/logo.png",
