@@ -45,7 +45,7 @@ export default function HeroSection() {
       {/* Left: text + button */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg md:pt-12 md:pb-12">
         <h1
-          className="text-3xl md:text-5xl font-bold tracking-tight text-red-900"
+          className="mt-[2px] text-3xl md:text-5xl font-bold tracking-tight text-red-900"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           Turn Your Pet Into a DnD Legend
@@ -61,7 +61,7 @@ export default function HeroSection() {
         {/* Button — sits right below text */}
         <a
           href="/generate"
-          className="mt-8 self-center flex flex-col items-center bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
+          className="mt-[36px] self-center flex flex-col items-center bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           <span className="text-lg">Cast Polymorph</span>
@@ -69,7 +69,7 @@ export default function HeroSection() {
         </a>
 
         {/* Before image — desktop only, pushed to bottom of column */}
-        <div className={`hidden md:flex mt-16 self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+        <div className={`hidden md:flex mt-[60px] self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           {/* Outer div is relative + overflow-visible so the arrow can float outside */}
           <div className="relative w-[200px] h-[220px]">
             <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-md">
