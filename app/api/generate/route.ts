@@ -18,7 +18,7 @@ const CLASS_PROMPTS: Record<string, string> = {
 
 
   rogue:
-    "Transform this dog and his likeness into a hyper realistic DnD style rogue portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The rogue should be wearing sleep dark charcoal and black form-fitting leather armor and gloves. The rogue should be equipped with a finely ornate dark dagger in his right hand and a hand crossbow in the left hand perched up against his shoulder. The rogue is also wearing a black hood to conceal himself.",
+    "Transform this dog and his likeness into a hyper realistic DnD style rogue portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The rogue should be wearing sleek dark charcoal and black form-fitting leather armor and gloves. The rogue should be equipped with a finely ornate dark dagger in his right hand and a hand crossbow in the left hand perched up against his shoulder. The rogue is also wearing a black hood to conceal himself.",
   cleric:
     "Transform this dog and his likeness into a hyper realistic tall DnD style cleric portrait facing forward. The likeness should be preserved as much as possible but the color and shading should fit the rest of the image. The cleric should be wearing white and gold holy vestments with a sacred sun-wheel symbol emblazoned on the chest and black gloves. In his right hand he holds a gleaming golden mace radiating a warm holy light. In his left hand he hold a holy tome flipped open to glowing pages. The sun-wheel on his vestments and the sun-wheel on the medallion are identical.",
   druid:
