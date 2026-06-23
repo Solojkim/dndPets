@@ -10,7 +10,7 @@ export default function NavBar() {
 
   return (
     <div className="sticky top-0 z-40">
-      <nav className="w-full border-b-2 border-amber-900/40 px-6 py-2 flex items-center justify-between shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
+      <nav className="w-full border-b-2 border-amber-900/40 px-6 py-2 flex items-center justify-between relative shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen((o) => !o)}
@@ -54,20 +54,38 @@ export default function NavBar() {
           </a>
         </div>
 
-        <a href="/" className="flex items-center gap-1.5 lg:gap-3">
+        {/* Mobile: title centered absolutely */}
+        <a href="/" className="lg:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+          <Image
+            src="/logo.png"
+            alt="Dungeons & Doggos logo"
+            width={48}
+            height={48}
+            className="rounded-sm w-[48px] h-[48px]"
+          />
           <span
-            className="text-base lg:text-xl font-bold text-red-900 tracking-wide"
+            className="text-base font-bold text-red-900 tracking-wide"
             style={{ fontFamily: "var(--font-cinzel)" }}
           >
             Dungeons & Doggos
           </span>
+        </a>
+
+        {/* Desktop: title on the left (normal flow) */}
+        <a href="/" className="hidden lg:flex items-center gap-3">
           <Image
             src="/logo.png"
             alt="Dungeons & Doggos logo"
             width={68}
             height={68}
-            className="rounded-sm w-[48px] h-[48px] lg:w-[68px] lg:h-[68px]"
+            className="rounded-sm w-[68px] h-[68px]"
           />
+          <span
+            className="text-xl font-bold text-red-900 tracking-wide"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            Dungeons & Doggos
+          </span>
         </a>
 
         {/* Desktop CTA */}
@@ -83,7 +101,7 @@ export default function NavBar() {
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <div
-          className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-4 flex flex-col items-start gap-1 shadow-md"
+          className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-2 flex flex-col divide-y divide-amber-900/20 shadow-md"
           style={{ backgroundColor: "#f5ecd7" }}
         >
           {[...NAV_LINKS, "Sign In"].map((label) => (
