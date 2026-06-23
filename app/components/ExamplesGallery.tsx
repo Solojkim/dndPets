@@ -17,7 +17,7 @@ const EXAMPLES: Example[] = [
 
 function ComingSoonCard() {
   return (
-    <div className="w-full aspect-square md:aspect-[2/3] relative rounded-2xl shadow-lg overflow-hidden" style={{ backgroundColor: "#ede0c4" }}>
+    <div className="w-full aspect-[2/3] relative rounded-2xl shadow-lg overflow-hidden" style={{ backgroundColor: "#ede0c4" }}>
       <div className="absolute inset-0 flex items-center justify-center">
         <span
           className="text-red-900/30 font-bold tracking-widest uppercase select-none"
@@ -58,7 +58,7 @@ export default function ExamplesGallery() {
             {example.comingSoon ? (
               <ComingSoonCard />
             ) : (
-              <div className="w-full aspect-square md:aspect-[2/3] relative rounded-2xl shadow-lg overflow-hidden">
+              <div className="w-full aspect-[2/3] relative rounded-2xl shadow-lg overflow-hidden">
                 <Image
                   src={example.src}
                   alt={example.alt}
