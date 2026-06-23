@@ -132,10 +132,7 @@ export default function HeroSection() {
       </div>
 
       {/* Desktop: large after image */}
-      <div
-        className="hidden lg:block relative rounded-2xl overflow-hidden shadow-xl flex-shrink-0"
-        style={{ width: "45vw", maxWidth: "640px" }}
-      >
+      <div className="hidden lg:block relative rounded-2xl overflow-hidden shadow-xl lg:flex-1 lg:max-w-[640px]">
         {SETS.map((s, idx) => (
           <div
             key={s.label + "-after"}
