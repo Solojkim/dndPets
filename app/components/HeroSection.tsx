@@ -43,7 +43,7 @@ export default function HeroSection() {
     <section className="flex flex-col lg:flex-row items-center lg:items-stretch justify-start lg:justify-center gap-8 lg:gap-8 px-4 sm:px-8 pt-12 pb-20 lg:pt-0 lg:pb-0 lg:min-h-screen border-b border-amber-900/20">
 
       {/* Left: text + button */}
-      <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left max-w-lg lg:py-16">
+      <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left max-w-lg lg:flex-1 lg:py-16">
         <h1
           className="text-3xl lg:text-5xl font-bold tracking-tight text-red-900"
           style={{ fontFamily: "var(--font-cinzel)" }}
