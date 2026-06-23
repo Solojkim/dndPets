@@ -40,37 +40,36 @@ export default function HeroSection() {
   const set = SETS[currentSet];
 
   return (
-    <section className="flex flex-col md:flex-row items-start md:items-stretch justify-start md:justify-center gap-12 md:gap-8 px-8 pt-12 pb-16 md:pt-0 md:pb-0 min-h-screen border-b border-amber-900/20">
+    <section className="flex flex-col lg:flex-row items-start lg:items-stretch justify-start lg:justify-center gap-12 lg:gap-8 px-8 pt-12 pb-16 lg:pt-0 lg:pb-0 min-h-screen border-b border-amber-900/20">
 
       {/* Left: text + button */}
-      <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left max-w-lg md:py-16">
+      <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left max-w-lg lg:py-16">
         <h1
-          className="text-3xl md:text-5xl font-bold tracking-tight text-red-900"
+          className="text-3xl lg:text-5xl font-bold tracking-tight text-red-900"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           Turn Your Pet Into a DnD Legend
         </h1>
         <p
-          className="mt-6 text-base md:text-xl text-stone-600"
+          className="mt-6 text-base lg:text-xl text-stone-600"
           style={{ fontFamily: "var(--font-lora)" }}
         >
           Turn your pal into a paladin. Upload a photo, pick a class, and get a
           hyper-realistic fantasy portrait in seconds.
         </p>
 
-        {/* Button — sits right below text */}
+        {/* Button */}
         <a
           href="/generate"
-          className="mt-[36px] self-center flex flex-col items-center bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
+          className="mt-9 self-center flex flex-col items-center bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-4 rounded-full transition-colors shadow-lg"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           <span className="text-lg">Cast Polymorph</span>
           <span className="text-[10px] text-white/50">(Create your portrait)</span>
         </a>
 
-        {/* Before image — desktop only, pushed to bottom of column */}
-        <div className={`hidden md:flex mt-14 self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          {/* Outer div is relative + overflow-visible so the arrow can float outside */}
+        {/* Before image — desktop only */}
+        <div className={`hidden lg:flex mt-14 self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           <div className="relative w-[200px] h-[220px]">
             <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-md">
               {SETS.map((s, idx) => (
@@ -99,9 +98,9 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Mobile: before + after side by side */}
+        {/* Mobile + tablet: before + after side by side */}
         <div
-          className={`md:hidden mt-14 flex flex-row items-center gap-3 transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}
+          className={`lg:hidden mt-14 flex flex-row items-center gap-3 transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
           <div className="flex flex-col items-center gap-1">
             <div className="relative w-44 h-44 rounded-xl overflow-hidden shadow-md">
@@ -134,7 +133,7 @@ export default function HeroSection() {
 
       {/* Desktop: large after image */}
       <div
-        className="hidden md:block relative rounded-2xl overflow-hidden shadow-xl flex-shrink-0 mb-12"
+        className="hidden lg:block relative rounded-2xl overflow-hidden shadow-xl flex-shrink-0"
         style={{ width: "45vw", maxWidth: "640px" }}
       >
         {SETS.map((s, idx) => (

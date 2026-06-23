@@ -3,23 +3,23 @@ import Image from "next/image";
 export default function NavBar() {
   return (
     <nav className="sticky top-0 z-40 w-full border-b-2 border-amber-900/40 px-6 py-2 flex items-center justify-between shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
-      <a href="/" className="flex items-center gap-1.5 md:gap-3">
+      <a href="/" className="flex items-center gap-1.5 lg:gap-3">
         <Image
           src="/logo.png"
           alt="Dungeons & Doggos logo"
           width={68}
           height={68}
-          className="rounded-sm w-[48px] h-[48px] md:w-[68px] md:h-[68px]"
+          className="rounded-sm w-[48px] h-[48px] lg:w-[68px] lg:h-[68px]"
         />
         <span
-          className="text-base md:text-xl font-bold text-red-900 tracking-wide"
+          className="text-base lg:text-xl font-bold text-red-900 tracking-wide"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           Dungeons & Doggos
         </span>
       </a>
 
-      <div className="hidden md:flex items-center gap-10 ml-auto mr-10">
+      <div className="hidden lg:flex items-center gap-6 xl:gap-10 ml-auto mr-6 xl:mr-10">
         {["How It Works", "Gallery", "Pricing", "Blog", "FAQ"].map((label) => (
           <a
             key={label}
@@ -43,7 +43,7 @@ export default function NavBar() {
 
       <a
         href="/generate"
-        className="bg-red-900 hover:bg-red-950 text-white text-xs md:text-sm font-semibold px-3 py-1.5 md:px-5 md:py-2 rounded-full transition-colors whitespace-nowrap"
+        className="bg-red-900 hover:bg-red-950 text-white text-xs lg:text-sm font-semibold px-3 py-1.5 lg:px-5 lg:py-2 rounded-full transition-colors whitespace-nowrap"
         style={{ fontFamily: "var(--font-cinzel)" }}
       >
         Cast Polymorph
