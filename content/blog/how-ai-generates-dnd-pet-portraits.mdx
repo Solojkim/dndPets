@@ -1,0 +1,61 @@
+export const metadata = {
+  slug: "how-ai-generates-dnd-pet-portraits",
+  title: "How AI Generates DnD Pet Portraits",
+  description: "A behind-the-scenes look at how we use AI image generation to transform your dog photo into a hyper-realistic fantasy portrait.",
+  date: "2026-06-19",
+};
+
+# How AI Generates DnD Pet Portraits
+
+When you upload a photo of your dog and hit generate, something genuinely impressive happens in the background. Within 15–30 seconds, your dog goes from a regular photo to a fully realized DnD character portrait — same face, same fur, completely different world.
+
+Here's exactly how it works.
+
+## The Core Technology: Image-to-Image AI
+
+Dungeons & Doggos uses a state-of-the-art AI image model called **FLUX Kontext**, developed by Black Forest Labs. Unlike older AI image generators that work purely from text descriptions, FLUX Kontext is designed to work from a *reference image* as its primary input.
+
+This matters enormously for what we're doing. The model doesn't just generate a generic wizard or barbarian — it analyzes your dog's specific face, fur color, markings, and proportions, then rebuilds that likeness inside a fantasy setting.
+
+## What the AI Actually Does
+
+When you submit a photo, three things happen:
+
+**1. Image Analysis**
+The model processes your dog's photo at a deep level — identifying facial structure, fur texture, color patterns, and distinctive features like white patches, dark muzzles, or unusual markings.
+
+**2. Prompt-Guided Transformation**
+Each DnD class has a carefully crafted prompt describing the exact armor, weapons, insignia, and visual style we want. The Paladin gets blackened gold armor and a glowing hammer. The Wizard gets navy robes with glowing arcane sigils. The Rogue gets dark leather armor and a hand crossbow.
+
+The model fuses your dog's likeness with these specific instructions.
+
+**3. Portrait Rendering**
+The output is generated at high resolution in a 2:3 portrait orientation — the classic fantasy character portrait format. The result is your dog, rendered as if they walked out of a DnD sourcebook.
+
+## Why Likeness Preservation Is Hard
+
+Getting the AI to preserve your dog's face while changing everything else is the hardest part of this problem. Standard image generation models tend to drift — they understand "wizard" better than they understand "this specific dog's face."
+
+Our prompts are engineered specifically to anchor the likeness. Every class prompt includes explicit instructions to preserve the dog's facial features, fur color, and markings. We've tested and refined these prompts across hundreds of generations.
+
+Some classes preserve likeness better than others — the Wizard and Paladin tend to produce the strongest resemblance because their costumes frame the face directly. The Barbarian is intentionally anthropomorphic, with the dog's fur and paws replacing human skin entirely.
+
+## The Honest Limitations
+
+AI-generated portraits are artistic interpretations, not exact copies. The model makes decisions — about lighting, pose, background, expression — that we don't fully control. Two generations from the same photo will look different.
+
+This is a feature, not a bug. Each portrait is unique. But it does mean that if you're unhappy with the result, generating again will produce a different outcome. We're continuously refining the prompts to improve consistency.
+
+## What Makes a Good Input Photo
+
+The model works best with:
+- Clear, front-facing photos where your dog's face is fully visible
+- Good natural lighting without heavy shadows
+- A relatively simple background
+- A photo where your dog is looking at the camera
+
+The more detail the AI can see in your input, the more of it ends up in the portrait.
+
+---
+
+Ready to see what the AI does with your dog? [Cast Polymorph →](/generate)
