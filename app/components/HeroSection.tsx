@@ -40,7 +40,7 @@ export default function HeroSection() {
   const set = SETS[currentSet];
 
   return (
-    <section className="flex flex-col lg:flex-row items-start lg:items-stretch justify-start lg:justify-center gap-12 lg:gap-8 px-4 sm:px-8 pt-12 pb-16 lg:pt-0 lg:pb-0 min-h-screen border-b border-amber-900/20">
+    <section className="flex flex-col lg:flex-row items-start lg:items-stretch justify-start lg:justify-center gap-8 lg:gap-8 px-4 sm:px-8 pt-12 pb-12 lg:pt-0 lg:pb-0 lg:min-h-screen border-b border-amber-900/20">
 
       {/* Left: text + button */}
       <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left max-w-lg lg:py-16">

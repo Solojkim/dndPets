@@ -11,24 +11,28 @@ export default function NavBar() {
   return (
     <div className="sticky top-0 z-40">
       <nav className="w-full border-b-2 border-amber-900/40 px-6 py-2 flex items-center justify-between shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
-        <a href="/" className="flex items-center gap-1.5 lg:gap-3">
-          <Image
-            src="/logo.png"
-            alt="Dungeons & Doggos logo"
-            width={68}
-            height={68}
-            className="rounded-sm w-[48px] h-[48px] lg:w-[68px] lg:h-[68px]"
-          />
-          <span
-            className="text-base lg:text-xl font-bold text-red-900 tracking-wide"
-            style={{ fontFamily: "var(--font-cinzel)" }}
-          >
-            Dungeons & Doggos
-          </span>
-        </a>
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen((o) => !o)}
+          className="lg:hidden p-2 text-red-900"
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          )}
+        </button>
 
         {/* Desktop nav links */}
-        <div className="hidden lg:flex items-center gap-6 xl:gap-10 ml-auto mr-6 xl:mr-10">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-10 mr-6 xl:mr-10">
           {NAV_LINKS.map((label) => (
             <a
               key={label}
@@ -50,6 +54,22 @@ export default function NavBar() {
           </a>
         </div>
 
+        <a href="/" className="flex items-center gap-1.5 lg:gap-3">
+          <span
+            className="text-base lg:text-xl font-bold text-red-900 tracking-wide"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            Dungeons & Doggos
+          </span>
+          <Image
+            src="/logo.png"
+            alt="Dungeons & Doggos logo"
+            width={68}
+            height={68}
+            className="rounded-sm w-[48px] h-[48px] lg:w-[68px] lg:h-[68px]"
+          />
+        </a>
+
         {/* Desktop CTA */}
         <a
           href="/generate"
@@ -58,32 +78,12 @@ export default function NavBar() {
         >
           Cast Polymorph
         </a>
-
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMenuOpen((o) => !o)}
-          className="lg:hidden p-2 text-red-900"
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          )}
-        </button>
       </nav>
 
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <div
-          className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-4 flex flex-col items-end gap-1 shadow-md"
+          className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-4 flex flex-col items-start gap-1 shadow-md"
           style={{ backgroundColor: "#f5ecd7" }}
         >
           {[...NAV_LINKS, "Sign In"].map((label) => (
