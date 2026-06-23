@@ -103,7 +103,7 @@ export default function HeroSection() {
           className={`lg:hidden mt-14 flex flex-row items-center gap-3 transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
           <div className="flex flex-col items-center gap-1">
-            <div className="relative w-44 h-44 rounded-xl overflow-hidden shadow-md">
+            <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-xl overflow-hidden shadow-md">
               <Image
                 src={set.before.src}
                 alt="Your pet"
@@ -118,7 +118,7 @@ export default function HeroSection() {
           <span className="text-xl text-red-900 font-bold" style={{ fontFamily: "var(--font-cinzel)" }}>→</span>
 
           <div className="flex flex-col items-center gap-1">
-            <div className="relative w-44 h-44 rounded-xl overflow-hidden shadow-md">
+            <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-xl overflow-hidden shadow-md">
               <Image
                 src={set.after.src}
                 alt={`DnD ${set.label}`}

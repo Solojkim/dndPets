@@ -12,7 +12,7 @@ export default function NavBar() {
           className="rounded-sm w-[48px] h-[48px] lg:w-[68px] lg:h-[68px]"
         />
         <span
-          className="text-base lg:text-xl font-bold text-red-900 tracking-wide"
+          className="hidden sm:inline text-base lg:text-xl font-bold text-red-900 tracking-wide"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           Dungeons & Doggos
