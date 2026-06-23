@@ -12,7 +12,7 @@ export default function NavBar() {
           className="rounded-sm w-[48px] h-[48px] lg:w-[68px] lg:h-[68px]"
         />
         <span
-          className="hidden sm:inline text-base lg:text-xl font-bold text-red-900 tracking-wide"
+          className="text-base lg:text-xl font-bold text-red-900 tracking-wide"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           Dungeons & Doggos
@@ -46,7 +46,8 @@ export default function NavBar() {
         className="bg-red-900 hover:bg-red-950 text-white text-xs lg:text-sm font-semibold px-3 py-1.5 lg:px-5 lg:py-2 rounded-full transition-colors whitespace-nowrap"
         style={{ fontFamily: "var(--font-cinzel)" }}
       >
-        Cast Polymorph
+        <span className="sm:hidden">Polymorph</span>
+        <span className="hidden sm:inline">Cast Polymorph</span>
       </a>
     </nav>
   );
