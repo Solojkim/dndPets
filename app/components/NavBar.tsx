@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function NavBar() {
   return (
-    <nav className="sticky top-0 z-40 w-full border-b-2 border-amber-900/40 px-6 py-1 flex items-center justify-between shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
+    <nav className="sticky top-0 z-40 w-full border-b-2 border-amber-900/40 px-6 py-2 flex items-center justify-between shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
       <a href="/" className="flex items-center gap-3">
         <Image
           src="/logo.png"

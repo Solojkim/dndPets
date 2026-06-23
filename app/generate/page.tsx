@@ -467,7 +467,7 @@ export default function GeneratePage() {
 
       {/* ── Done step ── */}
       {step === "done" && generatedUrl && (
-        <div className="flex flex-col items-center gap-6 -mt-4">
+        <div className="flex flex-col items-center gap-6">
           {emailSubmitted ? (
             <>
               <h1 className="text-3xl font-bold text-red-900" style={{ fontFamily: "var(--font-cinzel)" }}>

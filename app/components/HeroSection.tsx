@@ -40,12 +40,12 @@ export default function HeroSection() {
   const set = SETS[currentSet];
 
   return (
-    <section className="flex flex-col md:flex-row items-start md:items-stretch justify-start md:justify-center gap-12 md:gap-4 px-8 pt-12 pb-16 md:pt-0 md:pb-0 min-h-screen border-b border-amber-900/20">
+    <section className="flex flex-col md:flex-row items-start md:items-stretch justify-start md:justify-center gap-12 md:gap-8 px-8 pt-12 pb-16 md:pt-0 md:pb-0 min-h-screen border-b border-amber-900/20">
 
       {/* Left: text + button */}
-      <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg md:pt-12 md:pb-12">
+      <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left max-w-lg md:py-16">
         <h1
-          className="mt-[2px] text-3xl md:text-5xl font-bold tracking-tight text-red-900"
+          className="text-3xl md:text-5xl font-bold tracking-tight text-red-900"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
           Turn Your Pet Into a DnD Legend
@@ -69,7 +69,7 @@ export default function HeroSection() {
         </a>
 
         {/* Before image — desktop only, pushed to bottom of column */}
-        <div className={`hidden md:flex mt-[60px] self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+        <div className={`hidden md:flex mt-14 self-center transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           {/* Outer div is relative + overflow-visible so the arrow can float outside */}
           <div className="relative w-[200px] h-[220px]">
             <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-md">
