@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const NAV_LINKS = ["How It Works", "Gallery", "Pricing", "Blog", "FAQ"];
+const NAV_LINKS = ["How It Works", "Gallery", "Blog", "FAQ"];
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -83,14 +83,6 @@ export default function NavBar() {
               {label}
             </a>
           ))}
-          <a
-            href="/sign-in"
-            className="flex items-center gap-2 text-sm text-stone-600 hover:text-red-900 transition-colors"
-            style={{ fontFamily: "var(--font-cinzel)" }}
-          >
-            <span className="w-2 h-2 rounded-full border-2 border-stone-400 flex-shrink-0" />
-            Sign In
-          </a>
         </div>
 
         {/* Desktop: CTA on the right */}
@@ -110,7 +102,7 @@ export default function NavBar() {
           className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-2 flex flex-col divide-y divide-amber-900/20 shadow-md"
           style={{ backgroundColor: "#f5ecd7" }}
         >
-          {[...NAV_LINKS, "Sign In"].map((label) => (
+          {NAV_LINKS.map((label) => (
             <a
               key={label}
               href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
