@@ -11,7 +11,8 @@ export default function NavBar() {
   return (
     <div className="sticky top-0 z-40">
       <nav className="w-full border-b-2 border-amber-900/40 px-6 py-2 flex items-center justify-between relative shadow-md" style={{ backgroundColor: "#f5ecd7" }}>
-        {/* Mobile hamburger */}
+
+        {/* Mobile: hamburger on the left */}
         <button
           onClick={() => setMenuOpen((o) => !o)}
           className="lg:hidden p-2 text-red-900"
@@ -31,8 +32,42 @@ export default function NavBar() {
           )}
         </button>
 
-        {/* Desktop nav links */}
-        <div className="hidden lg:flex items-center gap-6 xl:gap-10 mr-6 xl:mr-10">
+        {/* Desktop: logo + title on the left */}
+        <a href="/" className="hidden lg:flex items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt="Dungeons & Doggos logo"
+            width={68}
+            height={68}
+            className="rounded-sm w-[68px] h-[68px]"
+          />
+          <span
+            className="text-xl font-bold text-red-900 tracking-wide"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            Dungeons & Doggos
+          </span>
+        </a>
+
+        {/* Mobile: title + logo centered absolutely */}
+        <a href="/" className="lg:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+          <span
+            className="text-base font-bold text-red-900 tracking-wide"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            Dungeons & Doggos
+          </span>
+          <Image
+            src="/logo.png"
+            alt="Dungeons & Doggos logo"
+            width={48}
+            height={48}
+            className="rounded-sm w-[48px] h-[48px]"
+          />
+        </a>
+
+        {/* Desktop: nav links in the middle */}
+        <div className="hidden lg:flex items-center gap-6 xl:gap-10 ml-auto mr-6 xl:mr-10">
           {NAV_LINKS.map((label) => (
             <a
               key={label}
@@ -54,41 +89,7 @@ export default function NavBar() {
           </a>
         </div>
 
-        {/* Mobile: title centered absolutely */}
-        <a href="/" className="lg:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5">
-          <Image
-            src="/logo.png"
-            alt="Dungeons & Doggos logo"
-            width={48}
-            height={48}
-            className="rounded-sm w-[48px] h-[48px]"
-          />
-          <span
-            className="text-base font-bold text-red-900 tracking-wide"
-            style={{ fontFamily: "var(--font-cinzel)" }}
-          >
-            Dungeons & Doggos
-          </span>
-        </a>
-
-        {/* Desktop: title on the left (normal flow) */}
-        <a href="/" className="hidden lg:flex items-center gap-3">
-          <Image
-            src="/logo.png"
-            alt="Dungeons & Doggos logo"
-            width={68}
-            height={68}
-            className="rounded-sm w-[68px] h-[68px]"
-          />
-          <span
-            className="text-xl font-bold text-red-900 tracking-wide"
-            style={{ fontFamily: "var(--font-cinzel)" }}
-          >
-            Dungeons & Doggos
-          </span>
-        </a>
-
-        {/* Desktop CTA */}
+        {/* Desktop: CTA on the right */}
         <a
           href="/generate"
           className="hidden lg:block bg-red-900 hover:bg-red-950 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors whitespace-nowrap"
@@ -96,6 +97,7 @@ export default function NavBar() {
         >
           Cast Polymorph
         </a>
+
       </nav>
 
       {/* Mobile dropdown menu */}
@@ -119,7 +121,7 @@ export default function NavBar() {
           <a
             href="/generate"
             onClick={() => setMenuOpen(false)}
-            className="mt-3 bg-red-900 hover:bg-red-950 text-white text-sm font-semibold px-5 py-3 rounded-full transition-colors text-center"
+            className="my-3 bg-red-900 hover:bg-red-950 text-white text-sm font-semibold px-5 py-3 rounded-full transition-colors text-center"
             style={{ fontFamily: "var(--font-cinzel)" }}
           >
             Cast Polymorph
