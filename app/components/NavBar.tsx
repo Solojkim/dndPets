@@ -83,7 +83,7 @@ export default function NavBar() {
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <div
-          className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-4 flex flex-col gap-1 shadow-md"
+          className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-4 flex flex-col items-end gap-1 shadow-md"
           style={{ backgroundColor: "#f5ecd7" }}
         >
           {[...NAV_LINKS, "Sign In"].map((label) => (
