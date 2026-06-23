@@ -49,8 +49,8 @@ export default function NavBar() {
           </span>
         </a>
 
-        {/* Mobile: title + logo centered absolutely */}
-        <a href="/" className="lg:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+        {/* Mobile: title + logo on the right */}
+        <a href="/" className="lg:hidden flex items-center gap-1.5">
           <span
             className="text-base font-bold text-red-900 tracking-wide"
             style={{ fontFamily: "var(--font-cinzel)" }}
