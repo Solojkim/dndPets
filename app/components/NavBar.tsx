@@ -49,14 +49,18 @@ export default function NavBar() {
           </span>
         </a>
 
-        {/* Mobile: title + logo on the right */}
-        <a href="/" className="lg:hidden flex items-center gap-1.5">
+        {/* Mobile: title centered absolutely */}
+        <a href="/" className="lg:hidden absolute left-1/2 -translate-x-1/2">
           <span
-            className="text-base font-bold text-red-900 tracking-wide"
+            className="text-base font-bold text-red-900 tracking-wide whitespace-nowrap"
             style={{ fontFamily: "var(--font-cinzel)" }}
           >
             Dungeons & Doggos
           </span>
+        </a>
+
+        {/* Mobile: logo on the right */}
+        <a href="/" className="lg:hidden ml-auto">
           <Image
             src="/logo.png"
             alt="Dungeons & Doggos logo"
