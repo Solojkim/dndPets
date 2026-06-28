@@ -277,7 +277,7 @@ export default function GeneratePage() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#f5ecd7" }}>
     <NavBar />
-    <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+    <main className="flex-1 flex flex-col items-center justify-start px-6 pt-8 pb-16 sm:pt-10 lg:pt-14">
 
       {/* ── Quiz step ── */}
       {step === "quiz" && (
@@ -391,7 +391,7 @@ export default function GeneratePage() {
           <h1 className="text-3xl font-bold text-red-900 mb-2 text-center" style={{ fontFamily: "var(--font-cinzel)" }}>
             Create Your Portrait
           </h1>
-          <p className="text-sm text-stone-500 mb-10 text-center" style={{ fontFamily: "var(--font-lora)" }}>
+          <p className="text-sm text-stone-500 mb-6 text-center" style={{ fontFamily: "var(--font-lora)" }}>
             Upload a photo of your dog and we'll transform them.
           </p>
 

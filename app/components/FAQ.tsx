@@ -27,7 +27,7 @@ const FAQS = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#ede0c4" }}>
+    <section id="faq" className="scroll-mt-16 md:scroll-mt-20 px-6 py-16 md:py-24" style={{ backgroundColor: "#ede0c4" }}>
       <h2
         className="text-2xl md:text-3xl font-bold text-red-900 text-center mb-12"
         style={{ fontFamily: "var(--font-cinzel)" }}

@@ -5,7 +5,7 @@ export default function LatestPosts() {
   const latest = POSTS.slice(0, 3);
 
   return (
-    <section id="blog" className="px-6 py-16 md:py-24" style={{ backgroundColor: "#f5ecd7" }}>
+    <section id="blog" className="scroll-mt-16 md:scroll-mt-20 px-6 py-16 md:py-24" style={{ backgroundColor: "#f5ecd7" }}>
       <h2
         className="text-2xl md:text-3xl font-bold text-red-900 text-center mb-4"
         style={{ fontFamily: "var(--font-cinzel)" }}

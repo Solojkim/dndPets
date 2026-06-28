@@ -3,7 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const NAV_LINKS = ["How It Works", "Gallery", "Blog", "FAQ"];
+const NAV_LINKS_ANCHORS: Record<string, string> = {
+  "How It Works": "/#how-it-works",
+  "Gallery": "/#gallery",
+  "Blog": "/blog",
+  "FAQ": "/#faq",
+};
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -72,10 +77,10 @@ export default function NavBar() {
 
         {/* Desktop: nav links in the middle */}
         <div className="hidden lg:flex items-center gap-6 xl:gap-10 ml-auto mr-6 xl:mr-10">
-          {NAV_LINKS.map((label) => (
+          {Object.keys(NAV_LINKS_ANCHORS).map((label) => (
             <a
               key={label}
-              href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
+              href={NAV_LINKS_ANCHORS[label]}
               className="flex items-center gap-2 text-sm text-stone-600 hover:text-red-900 transition-colors"
               style={{ fontFamily: "var(--font-cinzel)" }}
             >
@@ -102,10 +107,10 @@ export default function NavBar() {
           className="lg:hidden w-full border-b-2 border-amber-900/40 px-6 py-2 flex flex-col divide-y divide-amber-900/20 shadow-md"
           style={{ backgroundColor: "#f5ecd7" }}
         >
-          {NAV_LINKS.map((label) => (
+          {Object.keys(NAV_LINKS_ANCHORS).map((label) => (
             <a
               key={label}
-              href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
+              href={NAV_LINKS_ANCHORS[label]}
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-3 text-sm text-stone-600 hover:text-red-900 transition-colors py-2"
               style={{ fontFamily: "var(--font-cinzel)" }}
