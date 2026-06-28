@@ -108,6 +108,7 @@ const CLASS_MAP: Record<string, { name: string; description: string; portrait: s
 };
 
 const DND_CLASSES = ["wizard","paladin","barbarian","ranger","rogue","cleric","druid","bard"];
+const READY_CLASSES = new Set(["barbarian","wizard","bard"]);
 
 // ─── Scoring ──────────────────────────────────────────────────────────────────
 
@@ -138,10 +139,14 @@ export default function GeneratePage() {
   const [photo, setPhoto] = useState<File | null>(null);
   const [dndClass, setDndClass] = useState<string>("");
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [emailSubmitted, setEmailSubmitted] = useState(() =>
+    typeof window !== "undefined" && localStorage.getItem("emailCaptured") === "true"
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
+  const [comingSoonEmail, setComingSoonEmail] = useState("");
+  const [comingSoonSubmitted, setComingSoonSubmitted] = useState(false);
 
   useEffect(() => {
     if (!photo) { setPhotoPreviewUrl(null); return; }
@@ -386,84 +391,149 @@ export default function GeneratePage() {
       })()}
 
       {/* ── Generate step ── */}
-      {step === "generate" && (
-        <div className="w-full max-w-md flex flex-col items-center">
-          <h1 className="text-3xl font-bold text-red-900 mb-2 text-center" style={{ fontFamily: "var(--font-cinzel)" }}>
-            Create Your Portrait
-          </h1>
-          <p className="text-sm text-stone-500 mb-6 text-center" style={{ fontFamily: "var(--font-lora)" }}>
-            Upload a photo of your dog and we'll transform them.
-          </p>
+      {step === "generate" && (() => {
+        const isComingSoon = !!dndClass && !READY_CLASSES.has(dndClass);
 
-          <div className="w-full flex flex-col gap-6">
-            <div className="flex flex-col items-center">
-              <label className="text-sm font-semibold mb-3 text-stone-700" style={{ fontFamily: "var(--font-lora)" }}>
-                Photo of your dog
-              </label>
-              <label className="cursor-pointer">
-                <span className="inline-block py-2 px-6 rounded-full text-sm font-semibold bg-red-900 text-white hover:bg-red-950 transition-colors" style={{ fontFamily: "var(--font-cinzel)" }}>
-                  Choose File
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setPhoto(e.target.files?.[0] ?? null)}
-                  className="sr-only"
-                />
-              </label>
-              {photo && (
-                <p className="mt-2 text-xs text-stone-400" style={{ fontFamily: "var(--font-lora)" }}>{photo.name}</p>
-              )}
-              {photoPreviewUrl && (
-                <div className="mt-4 flex flex-col items-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photoPreviewUrl}
-                    alt="Your dog"
-                    className="w-48 h-48 object-cover rounded-2xl shadow-md border-2 border-amber-900/20"
+        if (isComingSoon) {
+          const className = dndClass.charAt(0).toUpperCase() + dndClass.slice(1);
+          return (
+            <div className="w-full max-w-md flex flex-col items-center text-center">
+              <p className="text-xs text-stone-400 tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-cinzel)" }}>
+                Coming Soon
+              </p>
+              <h1 className="text-4xl font-bold text-red-900 mb-4" style={{ fontFamily: "var(--font-cinzel)" }}>
+                {className}
+              </h1>
+              <p className="text-sm text-stone-500 mb-8 max-w-sm" style={{ fontFamily: "var(--font-lora)" }}>
+                We're still perfecting the {className} portrait. Leave your email and we'll let you know the moment it's ready.
+              </p>
+
+              {comingSoonSubmitted ? (
+                <p className="text-sm text-red-900 font-semibold mb-8" style={{ fontFamily: "var(--font-cinzel)" }}>
+                  You're on the list — we'll notify you!
+                </p>
+              ) : (
+                <form
+                  onSubmit={(e) => { e.preventDefault(); if (comingSoonEmail) { console.log("Coming soon email:", comingSoonEmail); setComingSoonSubmitted(true); } }}
+                  className="w-full flex flex-col gap-3 mb-8"
+                >
+                  <input
+                    type="email"
+                    value={comingSoonEmail}
+                    onChange={(e) => setComingSoonEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    required
+                    className="w-full rounded-lg border border-amber-900/30 px-4 py-3 text-stone-800 focus:border-red-900 focus:outline-none"
+                    style={{ backgroundColor: "#ede0c4", fontFamily: "var(--font-lora)" }}
                   />
-                </div>
+                  <button
+                    type="submit"
+                    className="bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-3 rounded-full transition-colors"
+                    style={{ fontFamily: "var(--font-cinzel)" }}
+                  >
+                    Notify Me
+                  </button>
+                </form>
               )}
-            </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-stone-700" style={{ fontFamily: "var(--font-lora)" }}>
-                DnD Class
-              </label>
-              <select
-                value={dndClass}
-                onChange={(e) => setDndClass(e.target.value)}
-                className="block w-full rounded-lg border border-amber-900/30 px-4 py-3 text-stone-800 focus:border-red-900 focus:outline-none"
-                style={{ backgroundColor: "#f5ecd7", fontFamily: "var(--font-lora)" }}
-              >
-                <option value="">Select a class…</option>
-                {DND_CLASSES.map(c => (
-                  <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+              <p className="text-xs text-stone-400 mb-4" style={{ fontFamily: "var(--font-lora)" }}>
+                Or choose an available class:
+              </p>
+              <div className="flex gap-3">
+                {["barbarian","wizard","bard"].map(c => (
+                  <button
+                    key={c}
+                    onClick={() => { setDndClass(c); setComingSoonSubmitted(false); setComingSoonEmail(""); }}
+                    className="px-5 py-2 rounded-full border-2 border-red-900 text-red-900 hover:bg-red-900 hover:text-white font-semibold text-sm transition-colors"
+                    style={{ fontFamily: "var(--font-cinzel)" }}
+                  >
+                    {c.charAt(0).toUpperCase() + c.slice(1)}
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
+          );
+        }
 
-            <button
-              onClick={handleGenerate}
-              disabled={!photo || !dndClass || isLoading}
-              className="bg-red-900 hover:bg-red-950 text-white text-lg font-semibold px-10 py-4 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{ fontFamily: "var(--font-cinzel)" }}
-            >
-              {isLoading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  Generating…
-                </span>
-              ) : "Generate Portrait"}
-            </button>
+        return (
+          <div className="w-full max-w-md flex flex-col items-center">
+            <h1 className="text-3xl font-bold text-red-900 mb-2 text-center" style={{ fontFamily: "var(--font-cinzel)" }}>
+              Create Your Portrait
+            </h1>
+            <p className="text-sm text-stone-500 mb-6 text-center" style={{ fontFamily: "var(--font-lora)" }}>
+              Upload a photo of your dog and we'll transform them.
+            </p>
 
-            {error && <p className="text-sm text-red-800 text-center">{error}</p>}
+            <div className="w-full flex flex-col gap-6">
+              <div className="flex flex-col items-center">
+                <label className="text-sm font-semibold mb-3 text-stone-700" style={{ fontFamily: "var(--font-lora)" }}>
+                  Photo of your dog
+                </label>
+                <label className="cursor-pointer">
+                  <span className="inline-block py-2 px-6 rounded-full text-sm font-semibold bg-red-900 text-white hover:bg-red-950 transition-colors" style={{ fontFamily: "var(--font-cinzel)" }}>
+                    Choose File
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setPhoto(e.target.files?.[0] ?? null)}
+                    className="sr-only"
+                  />
+                </label>
+                {photo && (
+                  <p className="mt-2 text-xs text-stone-400" style={{ fontFamily: "var(--font-lora)" }}>{photo.name}</p>
+                )}
+                {photoPreviewUrl && (
+                  <div className="mt-4 flex flex-col items-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={photoPreviewUrl}
+                      alt="Your dog"
+                      className="w-48 h-48 object-cover rounded-2xl shadow-md border-2 border-amber-900/20"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-stone-700" style={{ fontFamily: "var(--font-lora)" }}>
+                  DnD Class
+                </label>
+                <select
+                  value={dndClass}
+                  onChange={(e) => setDndClass(e.target.value)}
+                  className="block w-full rounded-lg border border-amber-900/30 px-4 py-3 text-stone-800 focus:border-red-900 focus:outline-none"
+                  style={{ backgroundColor: "#f5ecd7", fontFamily: "var(--font-lora)" }}
+                >
+                  <option value="">Select a class…</option>
+                  {DND_CLASSES.map(c => (
+                    <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                onClick={handleGenerate}
+                disabled={!photo || !dndClass || isLoading}
+                className="bg-red-900 hover:bg-red-950 text-white text-lg font-semibold px-10 py-4 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ fontFamily: "var(--font-cinzel)" }}
+              >
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Generating…
+                  </span>
+                ) : "Generate Portrait"}
+              </button>
+
+              {error && <p className="text-sm text-red-800 text-center">{error}</p>}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* ── Done step ── */}
       {step === "done" && generatedUrl && (
@@ -488,14 +558,14 @@ export default function GeneratePage() {
                 Download Portrait
               </button>
               <button
-                onClick={() => { setGeneratedUrl(null); setEmailSubmitted(false); setStep("generate"); }}
+                onClick={() => { setGeneratedUrl(null); setStep("generate"); }}
                 className="text-sm text-stone-500 hover:text-red-900 underline underline-offset-2 transition-colors"
                 style={{ fontFamily: "var(--font-lora)" }}
               >
                 Try again
               </button>
               <button
-                onClick={() => { resetQuiz(); setPhoto(null); setDndClass(""); setGeneratedUrl(null); setEmailSubmitted(false); setStep("quiz"); }}
+                onClick={() => { resetQuiz(); setPhoto(null); setDndClass(""); setGeneratedUrl(null); setStep("quiz"); }}
                 className="text-xs text-stone-400 hover:text-stone-600 underline underline-offset-2 transition-colors"
                 style={{ fontFamily: "var(--font-lora)" }}
               >
@@ -504,8 +574,16 @@ export default function GeneratePage() {
             </>
           ) : (
             <EmailCapture
-              onSubmit={(email) => { console.log("Email:", email); setEmailSubmitted(true); }}
-              onClose={() => setEmailSubmitted(true)}
+              onSubmit={async (email) => {
+                await fetch("/api/subscribe", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email }),
+                });
+                localStorage.setItem("emailCaptured", "true");
+                setEmailSubmitted(true);
+              }}
+              onClose={() => {}}
             />
           )}
         </div>

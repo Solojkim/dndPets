@@ -18,7 +18,6 @@ export default function EmailCapture({ onSubmit, onClose }: EmailCaptureProps) {
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-      onClick={onClose}
     >
       <div
         className="rounded-2xl p-8 w-full max-w-md mx-4 text-center border border-amber-900/20 shadow-xl"
