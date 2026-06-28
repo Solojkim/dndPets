@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       input: {
         prompt,
         input_image: buffer,
-        aspect_ratio: "match_input_image",
+        aspect_ratio: "2:3",
         safety_tolerance: 6,
       },
     });
