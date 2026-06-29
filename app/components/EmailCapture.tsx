@@ -28,14 +28,13 @@ export default function EmailCapture({ onSubmit, onClose }: EmailCaptureProps) {
           className="text-xl font-bold text-red-900"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
-          Your Portrait is Almost Ready
+          Your Portrait is Ready!
         </h3>
         <p
           className="mt-2 text-sm text-stone-600"
           style={{ fontFamily: "var(--font-lora)" }}
         >
-          We're putting the finishing touches on the generator. Drop your email
-          and we'll notify you the moment it's ready.
+          Enter your email to unlock your portrait.
         </p>
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
           <input
@@ -52,7 +51,7 @@ export default function EmailCapture({ onSubmit, onClose }: EmailCaptureProps) {
             className="bg-red-900 hover:bg-red-950 text-white font-semibold px-8 py-3 rounded-full transition-colors"
             style={{ fontFamily: "var(--font-cinzel)" }}
           >
-            Notify Me
+            Unlock My Portrait
           </button>
         </form>
       </div>

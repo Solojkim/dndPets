@@ -414,7 +414,7 @@ export default function GeneratePage() {
                 </p>
               ) : (
                 <form
-                  onSubmit={(e) => { e.preventDefault(); if (comingSoonEmail) { console.log("Coming soon email:", comingSoonEmail); setComingSoonSubmitted(true); } }}
+                  onSubmit={async (e) => { e.preventDefault(); if (comingSoonEmail) { await fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: comingSoonEmail, source: `coming-soon-${dndClass}` }) }); setComingSoonSubmitted(true); } }}
                   className="w-full flex flex-col gap-3 mb-8"
                 >
                   <input

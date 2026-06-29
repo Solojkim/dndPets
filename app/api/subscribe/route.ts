@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const { email } = await request.json();
+  const { email, source = "portrait-generator" } = await request.json();
 
   if (!email) {
     return NextResponse.json({ error: "Email is required" }, { status: 400 });
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
     },
-    body: JSON.stringify({ email, source: "portrait-generator" }),
+    body: JSON.stringify({ email, source }),
   });
 
   if (!res.ok) {
