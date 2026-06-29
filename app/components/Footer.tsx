@@ -49,12 +49,18 @@ export default function Footer() {
           </a>
         </div>
 
-        <p
-          className="text-xs text-amber-900/50"
-          style={{ fontFamily: "var(--font-lora)" }}
-        >
-          © 2026 Dungeons & Doggos
-        </p>
+        <div className="flex flex-col items-center gap-3">
+          <a href="https://dofollow.tools" target="_blank" rel="noopener noreferrer">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://dofollow.tools/badge/badge_transparent.svg" alt="Featured on Dofollow.Tools" width="200" height="54" />
+          </a>
+          <p
+            className="text-xs text-amber-900/50"
+            style={{ fontFamily: "var(--font-lora)" }}
+          >
+            © 2026 Dungeons & Doggos
+          </p>
+        </div>
 
       </div>
     </footer>
