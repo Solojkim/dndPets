@@ -62,6 +62,9 @@ export default function Footer() {
               <span style={{ fontSize: "16px", fontWeight: 700 }}>Bowora</span>
             </div>
           </a>
+          <a href="https://www.aitoolzdir.com" target="_blank" rel="noopener noreferrer" className="text-xs text-amber-200/70 hover:text-amber-100 transition-colors" style={{ fontFamily: "var(--font-lora)" }}>
+            AI Toolz Dir
+          </a>
           <a href="https://dofollow.tools" target="_blank" rel="noopener noreferrer">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://dofollow.tools/badge/badge_transparent.svg" alt="Featured on Dofollow.Tools" width="200" height="54" />
